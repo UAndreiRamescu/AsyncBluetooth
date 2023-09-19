@@ -6,7 +6,7 @@ let package = Package(
     name: "AsyncBluetooth",
     platforms: [
         .macOS("11.0"),
-        .iOS("14.0"),
+        .iOS("13.0"),
         .watchOS("7.0")
     ],
     products: [
