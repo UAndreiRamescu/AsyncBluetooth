@@ -30,7 +30,7 @@ struct CentralManagerUtils {
         case .unknown, .resetting:
             return nil
         @unknown default:
-            AsyncBluetooth.commonLogger.error("Unsupported CBManagerState received with raw value of \(bluetoothState.rawValue)")
+            Logger.log(message: "Unsupported CBManagerState received with raw value of \(bluetoothState.rawValue)")
             return false
         }
     }

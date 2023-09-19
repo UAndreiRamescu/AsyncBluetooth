@@ -5,10 +5,6 @@ import CoreBluetooth
 import os.log
 
 class PeripheralDelegate: NSObject {
-    private static let logger = Logger(
-        subsystem: Bundle(for: PeripheralDelegate.self).bundleIdentifier ?? "",
-        category: "peripheralDelegate"
-    )
 
     let context = PeripheralContext()
 }
@@ -22,7 +18,7 @@ extension PeripheralDelegate: CBPeripheralDelegate {
                 let result = CallbackUtils.result(for: RSSI, error: error)
                 try await self.context.readRSSIExecutor.setWorkCompletedWithResult(result)
             } catch {
-                Self.logger.error("Received ReadRSSI response without a continuation")
+                Logger.log(message: "Received ReadRSSI response without a continuation")
             }
         }
     }
@@ -33,7 +29,7 @@ extension PeripheralDelegate: CBPeripheralDelegate {
                 let result = CallbackUtils.result(for: (), error: error)
                 try await self.context.discoverServiceExecutor.setWorkCompletedWithResult(result)
             } catch {
-                Self.logger.warning("Received DiscoverServices response without a continuation")
+                Logger.log(message: "Received DiscoverServices response without a continuation")
             }
         }
     }
@@ -46,7 +42,7 @@ extension PeripheralDelegate: CBPeripheralDelegate {
                     service.uuid, result: result
                 )
             } catch {
-                Self.logger.warning("Received DiscoverIncludedServices response without a continuation")
+                Logger.log(message: "Received DiscoverIncludedServices response without a continuation")
             }
         }
     }
@@ -59,7 +55,7 @@ extension PeripheralDelegate: CBPeripheralDelegate {
                     service.uuid, result: result
                 )
             } catch {
-                Self.logger.warning("Received DiscoverCharacteristics result without a continuation")
+                Logger.log(message: "Received DiscoverCharacteristics result without a continuation")
             }
         }
     }
@@ -81,7 +77,7 @@ extension PeripheralDelegate: CBPeripheralDelegate {
                 )
             } catch {
                 guard !characteristic.isNotifying else { return }
-                Self.logger.warning("Received UpdateValue result for characteristic without a continuation")
+                Logger.log(message: "Received UpdateValue result for characteristic without a continuation")
             }
         }
     }
@@ -94,7 +90,7 @@ extension PeripheralDelegate: CBPeripheralDelegate {
                     characteristic.uuid, result: result
                 )
             } catch {
-                Self.logger.warning("Received WriteValue result for characteristic without a continuation")
+                Logger.log(message: "Received WriteValue result for characteristic without a continuation")
             }
         }
     }
@@ -111,7 +107,7 @@ extension PeripheralDelegate: CBPeripheralDelegate {
                     characteristic.uuid, result: result
                 )
             } catch {
-                Self.logger.warning("Received UpdateNotificationState result without a continuation")
+                Logger.log(message: "Received UpdateNotificationState result without a continuation")
             }
         }
     }
@@ -128,7 +124,7 @@ extension PeripheralDelegate: CBPeripheralDelegate {
                     characteristic.uuid, result: result
                 )
             } catch {
-                Self.logger.warning("Received DiscoverDescriptors result without a continuation")
+                Logger.log(message: "Received DiscoverDescriptors result without a continuation")
             }
         }
     }
@@ -141,7 +137,7 @@ extension PeripheralDelegate: CBPeripheralDelegate {
                     descriptor.uuid, result: result
                 )
             } catch {
-                Self.logger.warning("Received UpdateValue result for descriptor without a continuation")
+                Logger.log(message: "Received UpdateValue result for descriptor without a continuation")
             }
         }
     }
@@ -154,7 +150,7 @@ extension PeripheralDelegate: CBPeripheralDelegate {
                     descriptor.uuid, result: result
                 )
             } catch {
-                Self.logger.warning("Received WriteValue result for descriptor without a continuation")
+                Logger.log(message: "Received WriteValue result for descriptor without a continuation")
             }
         }
     }
@@ -165,7 +161,7 @@ extension PeripheralDelegate: CBPeripheralDelegate {
                 let result = CallbackUtils.result(for: channel, error: error)
                 try await self.context.openL2CAPChannelExecutor.setWorkCompletedWithResult(result)
             } catch {
-                Self.logger.warning("Received OpenChannel result without a continuation")
+                Logger.log(message: "Received OpenChannel result without a continuation")
             }
         }
     }

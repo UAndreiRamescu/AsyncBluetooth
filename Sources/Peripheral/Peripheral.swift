@@ -8,11 +8,6 @@ import os.log
 /// A remote peripheral device.
 /// - This class acts as a wrapper around `CBPeripheral`.
 public class Peripheral {
-        
-    private static let logger = Logger(
-        subsystem: Bundle(for: Peripheral.self).bundleIdentifier ?? "",
-        category: "peripheral"
-    )
     
     /// Publishes characteristics that are notifying of value changes.
     public lazy var characteristicValueUpdatedPublisher: AnyPublisher<Characteristic, Never> = {
@@ -69,7 +64,7 @@ public class Peripheral {
         }
         
         if cbPeripheral.delegate != nil {
-            Self.logger.warning("Replacing delegate for peripheral \(cbPeripheral.identifier) can cause problems.")
+            Logger.log(message: "Replacing delegate for peripheral \(cbPeripheral.identifier) can cause problems.")
         }
         
         self.cbPeripheralDelegate = PeripheralDelegate()

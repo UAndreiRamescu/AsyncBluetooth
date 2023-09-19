@@ -153,7 +153,7 @@ to your Package Dependencies.
 
 ## Requirements
 
-- iOS 14.0+
+- iOS 13.0+
 - MacOS 11.0+
 - Swift 5
 - Xcoce 13.2.1+
